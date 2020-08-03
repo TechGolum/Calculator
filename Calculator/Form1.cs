@@ -433,7 +433,7 @@ namespace Calculator
                 if (screen.Text[screen.Text.Length - 1] != '0' || isComa(screen.Text))
                     setText("0");
             if (e.KeyCode == Keys.Back) delete();
-            if(e.KeyCode == Keys.Enter)
+            if(e.KeyCode == Keys.ControlKey)
             {
                 screen.Text = replaceMinus(screen.Text);
                 while (!bracketsBalance(screen.Text))
@@ -449,6 +449,46 @@ namespace Calculator
 
                     }
                 }
+            }
+            if (e.KeyCode == Keys.OemMinus)
+            {
+                if (signLast())
+                {
+                    delete();
+                }
+                setText("-");
+            }
+            if(e.KeyCode == Keys.Oemplus)
+            {
+                if (signLast())
+                {
+                    delete();
+                }
+                if (!brOpenLast())
+                    setText("+");
+            }
+            if(e.KeyCode == Keys.OemQuestion)
+            {
+                if (signLast())
+                {
+                    delete();
+                }
+                if (!brOpenLast())
+                    setText("/");
+            }
+            if (e.KeyCode == Keys.X)
+            {
+                if (signLast())
+                {
+                    delete();
+                }
+                if (!brOpenLast())
+                    setText("*");
+            }
+            if (e.KeyCode == Keys.OemOpenBrackets)
+            {
+                if (signLast() && !brCloseLast() || screen.Text == "0" || brOpenLast())
+                    setText("(");
             }
         }
     }
